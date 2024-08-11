@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import Logo from '../imagens/logo.png'
+import LogoIfsul from '../imagens/logo.png'
 import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,14 +14,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AccountCircle } from '@mui/icons-material';
+import { logout, auth, signInWithGithub } from '../firebaseConfig';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function MenuPrincipal() {
 
-
-    //const [user, loading, error] = useAuthState(auth);
-
+    const [user, loading, error] = useAuthState(auth);
     const [anchorElMenuManutencoes, setAnchorElMenuManutencoes] = useState(null);
-    
+
     const handleOpenMenuManutencoes = (event) => {
         setAnchorElMenuManutencoes(event.currentTarget);
     };
@@ -50,27 +50,24 @@ function MenuPrincipal() {
     };
 
     const handleCloseUserMenu = () => {
-        //signInWithGithub();
+        signInWithGithub();
         setAnchorElUser(null);
     };
 
     const handleLogOut = () => {
-        //logout();
+        logout();
         setAnchorElUser(null);
-     }
+    }
 
     return (
         <>
-            <AppBar
-                position="static"
-                sx={{
+            <AppBar position="static" sx={{
                     backgroundColor: '#D2B48C', // Definindo a cor marrom claro
-                }}
-            >
+                }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         {/* Inicio tela grande - Logo Home */}
-                        <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} alt="Logo" src={Logo} />
+                        <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} alt="Logo IFSUL" src={LogoIfsul} />
                         <Typography
                             variant="h6"
                             noWrap
@@ -81,17 +78,17 @@ function MenuPrincipal() {
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
                                 letterSpacing: '.3rem',
-                                color: 'inherit',
+                                color: 'black',
                                 textDecoration: 'none',
                             }}
                         >
-                            Minhas Receitas
+                            Receitas
                         </Typography>
                         {/* Fim tela grande - Logo Home */}
 
                         {/* Inicio itens menu tela pequena */}
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -121,48 +118,47 @@ function MenuPrincipal() {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                
-                                    <Box sx={{ flexGrow: 0 }}>
-                                        {//user && 
-                                        <>
-                                        <MenuItem onClick={handleOpenMenuManutencoes}>
-                                            <Typography textAlign="center">Receitas</Typography>
-                                        </MenuItem>
-                                        <Menu
-                                            sx={{ mt: '45px' }}
-                                            id="menu-manutencoes"
-                                            anchorEl={anchorElMenuManutencoes}
-                                            anchorOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            keepMounted
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            open={anchorElMenuManutencoes}
-                                            onClose={handleCloseMenuManutencoes}
-                                        >
-                                            <MenuItem onClick={handleCloseNavMenuManutencoes}
-                                                component={NavLink} to="receitas">
-                                                <Typography textAlign="center">Receitas</Typography>
+
+                                <Box sx={{ flexGrow: 0 }}>
+                                    {user &&  
+                                        <>  
+                                            <MenuItem onClick={handleOpenMenuManutencoes}>
+                                                <Typography textAlign="center">Manutenções</Typography>
                                             </MenuItem>
-                                        </Menu>
-                                        <MenuItem onClick={handleCloseNavMenu}
-                                            component={NavLink} to="sobre">
-                                            <Typography textAlign="center">Sobre...</Typography>
-                                        </MenuItem>
+                                            <Menu
+                                                sx={{ mt: '45px' }}
+                                                id="menu-manutencoes"
+                                                anchorEl={anchorElMenuManutencoes}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={anchorElMenuManutencoes}
+                                                onClose={handleCloseMenuManutencoes}
+                                            >
+                                                <MenuItem onClick={handleCloseNavMenuManutencoes}
+                                                    component={NavLink} to="posts">
+                                                    <Typography textAlign="center">Posts</Typography>
+                                                </MenuItem>
+                                            </Menu>
                                         </>
                                     }
-
-                                    </Box>   
+                                    <MenuItem onClick={handleCloseNavMenu}
+                                        component={NavLink} to="sobre">
+                                        <Typography textAlign="center">Sobre...</Typography>
+                                    </MenuItem>
+                                </Box>
                             </Menu>
-                        </Box>
+                        </Box> */}
 
                         {/* Fim itens menu tela pequena */}
                         {/* Inicio tela pequena - Logo Home */}
-                        <Avatar sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} alt="Logo IFSUL" src={Logo}
+                        {/* <Avatar sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} alt="Logo IFSUL" src={LogoIfsul}
                         />
                         <Typography
                             variant="h5"
@@ -179,62 +175,63 @@ function MenuPrincipal() {
                                 textDecoration: 'none',
                             }}
                         >
-                            Minhas receitas
-                        </Typography>
+                            Meus Posts
+                        </Typography> */}
                         {/* Fim tela pequena - Logo Home */}
                         {/* Inicio itens menu tela grande */}
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: 'black' }}>
                             <Box sx={{ flexGrow: 0 }}>
-                                {//user &&
-                                <>
-                                    <Button onClick={handleOpenMenuManutencoes}
-                                        sx={{
-                                            my: 2, color: 'white', display: 'block',
-                                            textTransform: 'unset !important'
-                                        }}
-                                    >
-                                        Manutenções
-                                    </Button>
-                                    <Menu
-                                        sx={{ mt: '45px' }}
-                                        id="menu-manutencoes"
-                                        anchorEl={anchorElMenuManutencoes}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={anchorElMenuManutencoes}
-                                        onClose={handleCloseMenuManutencoes}
-                                    >
-                                        <MenuItem onClick={handleCloseMenuManutencoes}
-                                            component={NavLink} to="receitas">
-                                            <Typography textAlign="center">Receitas</Typography>
-                                        </MenuItem>
-                                    </Menu>
-                                </>
-                                } 
+                                {user &&
+                                    <>
+                                        <Button onClick={handleOpenMenuManutencoes}
+                                            sx={{
+                                                my: 2, color: 'white', display: 'block',
+                                                textTransform: 'unset !important', color: 'black'
+                                            }}
+                                        >
+                                            Edição/Cadastro de Receitas
+                                        </Button>
+                                        <Menu
+                                            sx={{ mt: '45px' }}
+                                            id="menu-manutencoes"
+                                            anchorEl={anchorElMenuManutencoes}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={anchorElMenuManutencoes}
+                                            onClose={handleCloseMenuManutencoes}
+                                        >
+                                            <MenuItem onClick={handleCloseMenuManutencoes}
+                                                component={NavLink} to="receitas">
+                                                <Typography textAlign="center">Receita</Typography>
+                                            </MenuItem>
+                                        </Menu>
+                                    </>
+                                }
                             </Box>
                         </Box>
                         {/* Fim itens menu tela grande */}
                         {/* Itens da direita */}
                         <Button component={NavLink} to="sobre"
                             sx={{
-                                my: 1, color: 'white',
+                                my: 1, color: 'black',
                                 display: { xs: 'none', md: 'flex' },
                                 textTransform: 'unset !important'
                             }}>Sobre</Button>                        
-                        <Box sx={{ flexGrow: 0 }}>
+                        <Box sx={{ flexGrow: 0, color: 'black' }}>
                             <Tooltip title="Menu do usuário">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}
                                     color="inherit">
 
+                                    <Typography >{!user ? "Autenticar" : <> {user?.displayName}
+                                    </>}</Typography>
                                     <AccountCircle />
-
 
                                 </IconButton>
                             </Tooltip>
@@ -254,16 +251,15 @@ function MenuPrincipal() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {//user && e !user && ali embaixo
+                                {user &&
                                     <MenuItem onClick={handleLogOut}
                                         component={NavLink} to="/">
                                         <Typography textAlign="center">Efetuar Logout</Typography>
                                     </MenuItem>
-                                }
-
-                                { 
+                                }  
+                                {!user && 
                                     <MenuItem onClick={handleCloseUserMenu}
-                                        >
+                                        component={NavLink} to="/login">
                                         <Typography textAlign="center">Efetuar Login</Typography>
                                     </MenuItem>
                                 }

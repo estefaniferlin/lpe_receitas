@@ -1,4 +1,3 @@
-/*
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import Alerta from '../../comuns/Alerta';
@@ -75,4 +74,3 @@ function Login() {
 }
 
 export default Login;
-*/

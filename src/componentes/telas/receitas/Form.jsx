@@ -17,8 +17,10 @@ function Form() {
     };
 
     const tiposReceita = [
-        { value: 'prato_principal', label: 'Prato Principal' },
-        { value: 'sobremesa', label: 'Sobremesa' },
+        { value: 'Prato Principal', label: 'Prato Principal' },
+        { value: 'Sobremesa', label: 'Sobremesa' },
+        { value: 'Café da Manhã', label: 'Café da Manhã' },
+        { value: 'Entrada', label: 'Entrada' },
         // Adicione outros tipos de receitas conforme necessário
     ];
 
@@ -28,18 +30,9 @@ function Form() {
             <DialogContent>
                 <TextField
                     margin="dense"
-                    name="titulo"
+                    name="nome"
                     label="Título"
-                    value={receita.titulo}
-                    onChange={handleChange}
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    margin="dense"
-                    name="descricao"
-                    label="Descrição"
-                    value={receita.descricao}
+                    value={receita.nome}
                     onChange={handleChange}
                     fullWidth
                     variant="standard"
@@ -52,6 +45,7 @@ function Form() {
                     onChange={handleChange}
                     fullWidth
                     variant="standard"
+                    type="number"
                 />
                 <TextField
                     margin="dense"
@@ -61,6 +55,7 @@ function Form() {
                     onChange={handleChange}
                     fullWidth
                     variant="standard"
+                    type="number"
                 />
                 <TextField
                     margin="dense"

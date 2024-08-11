@@ -16,16 +16,8 @@ function Tabela() {
     const columns = useMemo(
         () => [
             {
-                accessorKey: 'id',
-                header: 'ID',
-            },
-            {
-                accessorKey: 'titulo',
+                accessorKey: 'nome',
                 header: 'Título',
-            },
-            {
-                accessorKey: 'descricao',
-                header: 'Descrição',
             },
             {
                 accessorKey: 'tempoPreparo',
@@ -46,19 +38,7 @@ function Tabela() {
             {
                 accessorKey: 'modoPreparo',
                 header: 'Modo de Preparo',
-            },
-            {
-                accessorKey: 'usuario',
-                header: 'Usuário',
-            },
-            {
-                accessorKey: 'email',
-                header: 'Email',
-            },
-            {
-                accessorKey: 'uid',
-                header: 'UID',
-            },
+            }
         ],
         [],
     );

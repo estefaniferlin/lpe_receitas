@@ -4,11 +4,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { getReceitasFirebase } from '../../servicos/ReceitaService';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const nav = useNavigate()
 
-
-    const [listaReceitas, setListaReceitas] = useState([
+    /*
         {
             id: '1xxx',
             titulo: 'Bolo de Chocolate',
@@ -29,18 +31,19 @@ function Home() {
             ingredientes: 'Massa de lasagna, carne moída, queijo, molho de tomate',
             modoPreparo: 'Monte a lasagna em camadas e asse por 1 hora.',
         }
-    ]);
 
-    //const [listaReceitas, setListaReceitas] = useState([]);
+    */
+    const [listaReceitas, setListaReceitas] = useState([]);
+
 
     useEffect(() => {
-        //getReceitasFirebase(setListaReceitas);
+        getReceitasFirebase(setListaReceitas);
     }, []);
 
     return (
         <div style={{ padding: '20px' }}>
             <Typography variant="h5" component="div">
-                Minhas Receitas Favoritas
+                Todas as Receitas
             </Typography>
             {listaReceitas.length === 0 && <Typography variant="h5" component="div">
                 Nenhuma receita encontrada
@@ -51,27 +54,24 @@ function Home() {
                     listaReceitas.map(receita => (
                         <Grid item xs={12} sm={12} md={3} lg={3} xl={3}
                             key={receita.id}>
-                            <Card sx={{ minWidth: 50 }}>
+                            <Card sx={{ minWidth: 50 }} key={receita.id}>
                                 <CardContent>
+                                    <Typography variant="h4" component="div">
+                                        {receita.nome}
+                                    </Typography>
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        {receita.tipoReceita}
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        {receita.titulo}
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        {receita.descricao}
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        <Link to={`/detalhes-receita`} state={receita}>
-                                            Ver Receita
-                                        </Link>
+                                        {receita.tipo}
                                     </Typography>
                                     <Typography variant="h7" component="div">
                                         {receita.usuario}
                                     </Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                                         {receita.email}
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        <Link style={{cursor: 'pointer'}} onClick={() => {nav("/detalhes-receita", {state: receita})}}>
+                                            Ver Receita
+                                        </Link>
                                     </Typography>
                                 </CardContent>
                             </Card>
